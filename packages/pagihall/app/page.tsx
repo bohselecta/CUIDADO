@@ -1,42 +1,97 @@
 "use client";
 import Image from "next/image";
 import Link from "next/link";
+import { useEffect, useState } from "react";
+import OnboardingModal from "@/src/components/OnboardingModal";
+import OfflineNotice from "@/src/components/OfflineNotice";
 
 export default function Home() {
+  const [showIntro, setShowIntro] = useState(false);
+  const [ollamaUp, setOllamaUp] = useState<boolean | null>(null);
+
+  useEffect(() => {
+    const seen = localStorage.getItem("ph.onboarded");
+    setShowIntro(!seen);
+    // simple Ollama check (ok to fail silently on Vercel)
+    fetch("http://127.0.0.1:11434/api/tags", { method: "GET" })
+      .then(() => setOllamaUp(true))
+      .catch(() => setOllamaUp(false));
+  }, []);
+
+  function dismissIntro() {
+    localStorage.setItem("ph.onboarded", "1");
+    setShowIntro(false);
+  }
+
   return (
-    <main className="min-h-screen bg-tuscan-dusk text-white">
-      <div className="relative">
-        <Image src="/pagihall-exterior.jpg" alt="Pagi Hall" width={1920} height={1080}
-               className="w-full h-[70vh] object-cover brightness-[.85]" priority />
-        <div className="absolute inset-0 bg-gradient-to-t from-tuscan-dusk/70 to-transparent"/>
-        <div className="absolute inset-x-0 bottom-8 px-6 md:px-12">
-          <h1 className="text-4xl md:text-6xl font-semibold">Pagi Hall</h1>
-          <p className="max-w-2xl mt-3 text-sm md:text-base opacity-90">
-            A quiet internet inside a villa — where your digital cloak speaks for you and to you.
+    <main className="min-h-screen bg-[var(--bg)] text-[var(--text)]">
+      {/* HERO */}
+      <section className="relative">
+        <Image
+          src="/pagihall-exterior.jpg"
+          alt="Pagi Hall"
+          width={1920}
+          height={1080}
+          className="w-full h-[68vh] md:h-[72vh] object-cover brightness-[.9]"
+          priority
+        />
+        <div className="absolute inset-0 bg-gradient-to-t from-[var(--bg)]/85 via-[var(--bg)]/20 to-transparent" />
+        <div className="absolute bottom-8 left-6 md:left-12 right-6 text-[var(--text)]">
+          <h1 className="text-4xl md:text-6xl font-semibold tracking-tight">Pagi Hall</h1>
+          <p className="max-w-2xl mt-3 text-sm md:text-base opacity-85">
+            A quiet internet inside a villa — where your digital cloak listens, speaks, and learns alongside you.
           </p>
-          <div className="mt-6 flex gap-3">
-            <Link href="/cloak" className="bg-white text-black px-4 py-2 rounded-lg">Enter the Hall</Link>
-            <Link href="/briefs" className="border border-white/30 px-4 py-2 rounded-lg">Read Civic Briefs</Link>
+          <div className="mt-6 flex flex-wrap gap-3">
+            <Link href="/cloak" className="btn-accent">Enter the Hall</Link>
+            <Link href="/cuidado" className="text-sm border border-[var(--line)] rounded-[12px] px-3 py-2 hover:bg-[var(--accent-soft)]">
+              Powered by CUIDADO Engine
+            </Link>
           </div>
         </div>
-      </div>
+      </section>
 
-      <section className="px-6 md:px-12 py-12 grid md:grid-cols-3 gap-6 bg-gradient-to-b from-tuscan-dusk to-black">
+      {/* VALUE STRIP */}
+      <section className="px-6 md:px-12 py-10 grid md:grid-cols-3 gap-6">
         {[
-          ["Think with others","Your personal AI (the Cloak) joins a living hall of ideas."],
-          ["Topic of the moment","The room orients around a live issue from world & US news."],
-          ["Leave with clarity","Every visit ends with a small insight, not a feed."],
+          ["Think clearly", "Your cloak turns headlines into decisions you can live with."],
+          ["See the room", "Watch personal AIs cluster and connect around a live topic."],
+          ["Leave wiser", "Each visit ends with a small brief, not an infinite feed."]
         ].map(([h,b])=>(
-          <div key={h} className="bg-black/30 border border-white/10 p-5 rounded-xl">
+          <div key={h} className="bg-[var(--bg-soft)] border border-[var(--line)] rounded-2xl p-5">
             <div className="text-lg font-medium">{h}</div>
             <p className="text-sm opacity-80 mt-2">{b}</p>
           </div>
         ))}
       </section>
 
-      <footer className="bg-tuscan-dusk text-white text-center py-6 text-sm opacity-70">
-        Powered by <a href="/cuidado" className="underline hover:text-tuscan-sand transition-colors">CUIDADO Engine</a> — An open conversational framework for local AGI.
+      {/* PREVIEW → HALL */}
+      <section className="px-6 md:px-12 pb-12">
+        <div className="rounded-2xl border border-[var(--line)] overflow-hidden shadow-[var(--shadow)]">
+          <div className="px-5 py-3 border-b border-[var(--line)] bg-gradient-to-r from-[var(--accent-soft)]/40 to-transparent">
+            <div className="text-sm opacity-85">Today's Civic Topic rotates with the news</div>
+          </div>
+          <div className="p-0 md:p-3 bg-black">
+            <iframe
+              src="/civic/hall"
+              title="Pagi Hall Preview"
+              className="w-full h-[420px] rounded-none md:rounded-xl border-0"
+            />
+          </div>
+          <div className="px-5 py-4 flex flex-wrap gap-3 items-center bg-[var(--bg-soft)] border-t border-[var(--line)]">
+            <Link href="/civic/hall" className="btn-accent">Open full Hall</Link>
+            <span className="text-xs opacity-70">Live simulation • Privacy-first</span>
+          </div>
+        </div>
+      </section>
+
+      {/* FOOTER */}
+      <footer className="text-xs opacity-70 text-center py-8 border-t border-[var(--line)]">
+        Powered by <Link href="/cuidado" className="underline">CUIDADO Engine</Link>
       </footer>
+
+      {/* ONBOARDING + OFFLINE */}
+      {showIntro && <OnboardingModal onClose={dismissIntro} />}
+      {ollamaUp === false && <OfflineNotice />}
     </main>
   );
 }
