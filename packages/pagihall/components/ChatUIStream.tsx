@@ -94,7 +94,7 @@ export default function ChatUIStream() {
           <button onClick={()=>setShowPrompt(v=>!v)} className="text-xs border border-white/20 px-2 py-1 rounded">
             {showPrompt ? "Hide system prompt" : "View system prompt"}
           </button>
-          {busy && <button onClick={stop} className="bg-white text-black px-3 py-1 rounded text-sm">Stop</button>}
+          {busy && <button onClick={stop} className="bg-red-500 hover:bg-red-600 text-white px-3 py-1 rounded text-sm font-medium">⏹ Stop</button>}
         </div>
       </div>
 

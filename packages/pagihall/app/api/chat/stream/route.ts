@@ -64,12 +64,17 @@ export async function POST(req: NextRequest) {
               const obj = JSON.parse(line);
               const delta = obj?.message?.content || "";
               if (delta) controller.enqueue(encoder.encode(delta));
-              if (obj?.done) {
-                // Optionally capture metrics/signals from your controller here (dev placeholder)
-                LAST_SIGNALS = obj?.evals?.signals ?? null; // many ollama builds won't include this; safe to leave null
-                controller.close();
-                return;
-              }
+                  if (obj?.done) {
+                    // Generate mock signals for demo (replace with real CUIDADO signals later)
+                    LAST_SIGNALS = {
+                      U: 0.85, // Understanding
+                      N: 0.42, // Novelty  
+                      S: 0.91, // Safety
+                      V: 0.67  // Valence
+                    };
+                    controller.close();
+                    return;
+                  }
             } catch { /* ignore non-JSON */ }
           }
         }
