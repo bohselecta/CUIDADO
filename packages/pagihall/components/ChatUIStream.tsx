@@ -95,7 +95,14 @@ export default function ChatUIStream() {
     <>
       {/* Header */}
       <div className="chat-header">
-        <div className="header-title">CUIDADO Assistant (Streaming)</div>
+        <div className="flex items-center gap-2">
+          <img 
+            src="/cuidado-logo-graphic-mark.svg" 
+            alt="CUIDADO" 
+            className="w-6 h-6 logo-mark"
+          />
+          <div className="header-title">CUIDADO Assistant (Streaming)</div>
+        </div>
         {busy && <span className="header-sub">typing…</span>}
         {!!error && <span className="header-sub" style={{ color: "#ef4444" }}>{error}</span>}
         <div style={{ marginLeft: "auto" }} />

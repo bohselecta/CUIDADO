@@ -194,6 +194,17 @@ body { background: var(--bg); color: var(--text); }
 a, .linkish { color: var(--text); }
 a:hover, .linkish:hover { color: var(--accent-olive); }
 
+/* Logo styling */
+.logo-mark {
+  filter: brightness(0) saturate(100%) invert(100%);
+  transition: filter 0.2s ease;
+}
+@media (prefers-color-scheme: light) {
+  .logo-mark {
+    filter: brightness(0) saturate(100%) invert(0%);
+  }
+}
+
 /* ---------- PROSE (from formatter) ---------- */
 .cuidado-prose { line-height: 1.65; font-size: 0.94rem; }
 .cuidado-prose h2, .cuidado-prose h3 { margin: .6rem 0 .35rem; font-weight: 600; }
