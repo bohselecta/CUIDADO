@@ -5,7 +5,14 @@ export default function CuidadoHome() {
   return (
     <main className="min-h-screen bg-cuidado-gradient text-cuidado-white p-8 md:p-16 space-y-8">
       <section className="max-w-3xl mx-auto space-y-4">
-        <h1 className="text-5xl font-bold tracking-tight font-display">CUIDADO Engine</h1>
+        <div className="flex items-center gap-4">
+          <img 
+            src="/cuidado-logo-graphic-mark.svg" 
+            alt="CUIDADO" 
+            className="w-16 h-16 logo-mark"
+          />
+          <h1 className="text-5xl font-bold tracking-tight font-display">CUIDADO Engine</h1>
+        </div>
         <p className="text-cuidado-bronze text-lg">
           The conversational framework that powers Pagi Hall.  
           CUIDADO lets any developer build a local AI assistant that learns through behavior — not just tokens.
