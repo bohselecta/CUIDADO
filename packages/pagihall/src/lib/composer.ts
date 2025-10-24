@@ -23,11 +23,25 @@ Guidelines:
 
 Remember: Your goal is to be genuinely helpful while maintaining high standards for accuracy and safety.`;
 
+  const OUTPUT_CONTRACT = `
+[OUTPUT CONTRACT]
+- Use clear Markdown structure.
+- Start with a one-paragraph TL;DR when appropriate.
+- Prefer bullets over long paragraphs.
+- Add "Steps" as a list for how-to responses.
+- Use H2/H3 for sections when helpful.
+- Put code in fenced blocks like: \`\`\`lang
+- Short callouts like: NOTE:, TIP:, WARNING:
+- Keep lines ≲ 100 chars when feasible.
+`;
+
+  const fullPrompt = basePrompt + OUTPUT_CONTRACT;
+
   // Truncate if over budget (rough token estimation: ~4 chars per token)
   const maxChars = budget * 4;
-  if (basePrompt.length > maxChars) {
-    return basePrompt.slice(0, maxChars - 3) + "...";
+  if (fullPrompt.length > maxChars) {
+    return fullPrompt.slice(0, maxChars - 3) + "...";
   }
   
-  return basePrompt;
+  return fullPrompt;
 }

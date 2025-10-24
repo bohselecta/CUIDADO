@@ -1,5 +1,6 @@
 "use client";
 import { useEffect, useRef, useState } from "react";
+import Formatted from "@/src/components/Formatted";
 
 type Msg = { role: "user"|"assistant"|"system"; content: string };
 
@@ -119,10 +120,10 @@ export default function ChatUIStream() {
         {messages.map((m, i) => (
           <div key={i} className={
             m.role === "user" ? "ml-auto max-w-[80%] bg-white text-black rounded-lg px-3 py-2"
-            : m.role === "assistant" ? "max-w-[80%] bg-neutral-900 border border-white/10 rounded-lg px-3 py-2 whitespace-pre-wrap"
+            : m.role === "assistant" ? "max-w-[80%] bg-neutral-900 border border-white/10 rounded-lg px-3 py-2"
             : "text-xs opacity-70"
           }>
-            {m.content || (i === messages.length-1 && busy ? "…" : "")}
+            {m.role === "assistant" ? <Formatted raw={m.content}/> : m.content || (i === messages.length-1 && busy ? "…" : "")}
           </div>
         ))}
       </div>
