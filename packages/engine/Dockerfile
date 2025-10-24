@@ -10,8 +10,12 @@ COPY tsconfig.json ./
 RUN npm install
 
 # Copy source code
-COPY src/ ./src/
+COPY lib/ ./lib/
 COPY tests/ ./tests/
+COPY api/ ./api/
+COPY policy/ ./policy/
+COPY types/ ./types/
+COPY start.js ./
 
 # Create memory directory
 RUN mkdir -p memory
@@ -20,4 +24,4 @@ RUN mkdir -p memory
 EXPOSE 3001
 
 # Start the engine
-CMD ["npm", "run", "dev"]
+CMD ["node", "start.js"]

@@ -14,7 +14,7 @@ RUN npm install
 
 # Copy source code
 COPY app/ ./app/
-COPY src/ ./src/
+COPY components/ ./components/
 COPY public/ ./public/
 
 # Expose port
