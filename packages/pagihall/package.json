@@ -1,0 +1,42 @@
+{
+  "name": "@cuidado/pagihall",
+  "version": "1.0.0",
+  "description": "Pagi Hall - Digital civic space with Tuscan villa aesthetic",
+  "private": true,
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint",
+    "type-check": "tsc --noEmit"
+  },
+  "keywords": [
+    "civic",
+    "visualization",
+    "pagi",
+    "hall",
+    "nextjs",
+    "tailwind"
+  ],
+  "author": "Pagi Hall Collective",
+  "license": "MIT",
+  "dependencies": {
+    "next": "14.2.14",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1",
+    "tailwindcss": "^3.4.1",
+    "typescript": "^5.3.3"
+  },
+  "devDependencies": {
+    "@types/node": "^20.10.5",
+    "@types/react": "^18.3.3",
+    "@types/react-dom": "^18.3.0",
+    "autoprefixer": "^10.4.16",
+    "eslint": "^8.56.0",
+    "eslint-config-next": "14.2.14",
+    "postcss": "^8.4.32"
+  },
+  "engines": {
+    "node": ">=20.0.0"
+  }
+}

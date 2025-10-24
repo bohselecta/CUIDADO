@@ -1,0 +1,55 @@
+version: '3.8'
+
+services:
+  ollama:
+    image: ollama/ollama:latest
+    ports:
+      - "11434:11434"
+    volumes:
+      - ollama_data:/root/.ollama
+    environment:
+      - OLLAMA_HOST=0.0.0.0
+    restart: unless-stopped
+
+  cuidado-engine:
+    build: 
+      context: ./packages/engine
+      dockerfile: Dockerfile
+    ports:
+      - "3001:3001"
+    environment:
+      - OLLAMA_HOST=http://ollama:11434
+      - MODEL_PRIMARY=gemma3:4b-instruct-q4
+      - EMBED_MODEL=nomic-embed-text
+      - TEMP=0.7
+      - TOP_P=0.9
+      - POLICY_TOKEN_BUDGET=1800
+      - EPISODIC_DB=./memory/episodic.sqlite
+      - CIVIC_CURIOSITY_ENABLED=true
+    depends_on:
+      - ollama
+    volumes:
+      - ./packages/engine/src:/app/src
+      - ./packages/engine/memory:/app/memory
+      - ./packages/engine/tests:/app/tests
+    restart: unless-stopped
+
+  pagihall-frontend:
+    build:
+      context: ./packages/pagihall
+      dockerfile: Dockerfile
+    ports:
+      - "3000:3000"
+    environment:
+      - CUIDADO_ENGINE_URL=http://cuidado-engine:3001
+      - NEXT_PUBLIC_SITE_NAME=Pagi Hall
+    depends_on:
+      - cuidado-engine
+    volumes:
+      - ./packages/pagihall/app:/app/app
+      - ./packages/pagihall/src:/app/src
+      - ./packages/pagihall/public:/app/public
+    restart: unless-stopped
+
+volumes:
+  ollama_data:

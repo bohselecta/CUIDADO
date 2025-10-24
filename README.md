@@ -54,51 +54,105 @@ Next 14 • TypeScript • Tailwind • Ollama • SQLite • Tauri • Vercel (
 
 ## 📂 Directory Layout
 ```
-pagihall/
-├── app/
-│   ├── page.tsx              # Villa landing
-│   ├── cloak/page.tsx        # Cloak initiation
-│   ├── civic/hall/page.tsx   # SVG Civic Hall
-│   ├── briefs/page.tsx      # Civic Briefs
-│   ├── cuidado/              # Engine public pages
-│   │   ├── page.tsx          # Intro
-│   │   ├── chat/page.tsx     # Assistant
-│   │   ├── docs/page.tsx     # Quickstart
-│   │   └── download/page.tsx # Installer info
-│   └── api/…                 # Civic + Chat endpoints
-├── src/lib/                  # Engine modules
-├── src/policy/               # YAML constitutions & modes
-└── public/                   # Images & logos
+CUIDADO/
+├── packages/
+│   ├── engine/               # Core CUIDADO behavioral AI
+│   │   ├── src/lib/          # AI modules (memory, controller, etc.)
+│   │   ├── src/policy/       # YAML constitutions & modes
+│   │   ├── tests/            # Unit tests
+│   │   └── api/              # Engine API endpoints
+│   └── pagihall/             # Civic visualization frontend
+│       ├── app/              # Next.js pages
+│       │   ├── page.tsx      # Villa landing
+│       │   ├── cloak/page.tsx # Cloak initiation
+│       │   ├── civic/hall/page.tsx # SVG Civic Hall
+│       │   ├── briefs/page.tsx # Civic Briefs
+│       │   └── cuidado/      # Engine public pages
+│       ├── src/components/   # React components
+│       └── public/          # Images & logos
+├── docker-compose.yml        # Development environment
+└── dev-setup.sh             # One-click setup
 ```
 
 ---
 
 ## 🧭 Getting Started
 ### Requirements
-Node 20 • pnpm • Ollama installed • (optional Tauri CLI)
+Node 20 • Docker Desktop • (optional Ollama CLI)
 
-### Steps
+### Quick Start (Docker - Recommended)
 ```bash
-git clone https://github.com/pagihall/cuidado
-cd cuidado
-pnpm install
-cp .env.example .env
-pnpm dev
+git clone https://github.com/bohselecta/CUIDADO.git
+cd CUIDADO
+./dev-setup.sh
 ```
 
-### Start Ollama
+### Manual Setup
+```bash
+git clone https://github.com/bohselecta/CUIDADO.git
+cd CUIDADO
+npm install
+docker-compose up
+```
+
+### Local Development (No Docker)
+```bash
+# Install dependencies
+npm install
+
+# Start engine
+cd packages/engine && npm run dev
+
+# Start frontend (in another terminal)
+cd packages/pagihall && npm run dev
+```
+
+### Start Ollama (if not using Docker)
 ```bash
 ollama serve &
 ollama pull gemma3:4b-instruct-q4
 ```
 
-Visit [`http://localhost:3000`](http://localhost:3000)
+Visit [`http://localhost:3000`](http://localhost:3000) for Pagi Hall  
+Visit [`http://localhost:3001`](http://localhost:3001) for CUIDADO Engine API
+
+---
+
+## 🛠️ Development
+
+### **Monorepo Structure**
+This project uses a monorepo structure for focused development:
+
+- **`packages/engine/`** - Core CUIDADO behavioral AI framework
+- **`packages/pagihall/`** - Civic visualization frontend
+
+### **Development Workflow**
+```bash
+# Focus on engine development
+cd packages/engine
+npm run dev
+
+# Focus on frontend development  
+cd packages/pagihall
+npm run dev
+
+# Full integration testing
+docker-compose up
+```
+
+### **Key Benefits**
+✅ **Clear Focus** - Engine vs Frontend development  
+✅ **Independent Development** - Work on one without affecting the other  
+✅ **Docker Integration** - Consistent development setup  
+✅ **Easy Testing** - Isolated environments  
+
+See [`DEVELOPMENT.md`](DEVELOPMENT.md) for detailed development guide.
 
 ---
 
 ## 🧩 Therapeutic & Ethical Modes
 
-Under `/src/policy/modes.yaml`, CUIDADO includes:
+Under `packages/engine/src/policy/therapy_modes.yaml`, CUIDADO includes:
 
 * **Gottman** — relationship de-escalation
 * **Frankl (Logotherapy)** — meaning & values
