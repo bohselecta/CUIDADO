@@ -6,7 +6,7 @@ export default function OnboardingModal({ onClose }:{ onClose: ()=>void }) {
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50">
       <div className="w-[92vw] max-w-[760px] rounded-2xl border border-[var(--line)] bg-[var(--bg-soft)] shadow-[var(--shadow)] overflow-hidden">
         <div className="relative h-36">
-          <Image src="/pagihall-interior.jpg" alt="Interior" fill className="object-cover brightness-90" />
+          <Image src="/onboarding-header.jpg" alt="Pagi Hall" fill className="object-cover brightness-90" />
           <div className="absolute inset-0 bg-gradient-to-t from-[var(--bg-soft)]/90 to-transparent" />
         </div>
         <div className="px-5 md:px-7 py-5 space-y-4">
