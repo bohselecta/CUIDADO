@@ -1,5 +1,5 @@
 {
-  "buildCommand": "npm run build:frontend",
+  "buildCommand": "cd packages/pagihall && npm run build",
   "outputDirectory": "packages/pagihall/.next",
   "installCommand": "npm install",
   "framework": "nextjs",
