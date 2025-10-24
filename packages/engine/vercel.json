@@ -1,0 +1,14 @@
+{
+  "buildCommand": "cd packages/engine && npm run build",
+  "outputDirectory": "packages/engine/dist",
+  "installCommand": "npm install",
+  "framework": null,
+  "functions": {
+    "packages/engine/api/**/*.ts": {
+      "runtime": "nodejs20.x"
+    }
+  },
+  "crons": [
+    { "path": "/api/topics/live", "schedule": "*/10 * * * *" }
+  ]
+}
