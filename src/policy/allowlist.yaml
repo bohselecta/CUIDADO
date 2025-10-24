@@ -1,0 +1,6 @@
+tools:
+  web_readonly: true
+  file_scoped: true
+writes:
+  filesystem: "scoped"
+  network: "read_only"

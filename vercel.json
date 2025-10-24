@@ -1,0 +1,5 @@
+{
+  "crons": [
+    { "path": "/api/topics/live", "schedule": "*/10 * * * *" }
+  ]
+}
