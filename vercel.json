@@ -1,7 +1,7 @@
 {
-  "buildCommand": "npm run build:frontend",
+  "buildCommand": "cd packages/pagihall && npm run build",
   "outputDirectory": "packages/pagihall/.next",
-  "installCommand": "npm install",
+  "installCommand": "npm install && cd packages/pagihall && npm install",
   "framework": "nextjs",
   "crons": [
     { "path": "/api/topics/live", "schedule": "0 9 * * *" }
