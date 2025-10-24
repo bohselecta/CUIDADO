@@ -3,7 +3,7 @@ import { NextRequest } from "next/server";
 export const runtime = "nodejs";
 
 const OLLAMA_HOST = process.env.OLLAMA_HOST || "http://127.0.0.1:11434";
-const MODEL = process.env.MODEL_PRIMARY || "gemma3:4b-instruct-q4";
+const MODEL = process.env.MODEL_PRIMARY || "gemma3:4b";
 
 // in-memory last-metadata (dev-only; replace with your Episode log later)
 let LAST_SIGNALS: any = null;
