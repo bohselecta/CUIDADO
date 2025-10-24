@@ -111,7 +111,7 @@ export default function ChatUIStream() {
             <Meter label="S" v={signals.S}/>
             <Meter label="V" v={signals.V}/>
           </>
-        ) : <span className="opacity-50">Signals will appear after a reply. (Debug: signals={JSON.stringify(signals)})</span>}
+        ) : <span className="opacity-50">Signals will appear after a reply.</span>}
       </div>
 
       {/* messages */}
@@ -143,7 +143,7 @@ export default function ChatUIStream() {
       {/* prompt drawer */}
       {showPrompt && (
         <div className="p-3 text-xs bg-neutral-950 border-t border-white/10 max-h-56 overflow-auto">
-          <div className="opacity-60 mb-1">System prompt (excerpt) - Debug: {JSON.stringify(systemPrompt ? 'loaded' : 'null')}</div>
+          <div className="opacity-60 mb-1">System prompt (excerpt)</div>
           <pre className="whitespace-pre-wrap">{systemPrompt || "No prompt available."}</pre>
         </div>
       )}
@@ -154,9 +154,9 @@ export default function ChatUIStream() {
 function Meter({ label, v }: { label:string; v:number }) {
   const pct = Math.max(0, Math.min(1, Number(v||0))) * 100;
   return (
-    <div className="flex items-center gap-1">
-      <span className="opacity-70">{label}</span>
-      <div className="w-24 h-2 bg-neutral-800 rounded overflow-hidden">
+    <div className="flex items-center gap-2">
+      <span className="opacity-70 font-mono text-xs">{label}</span>
+      <div className="w-20 h-2 bg-neutral-800 rounded overflow-hidden">
         <div 
           className="h-2 bg-white rounded transition-all duration-200" 
           style={{ 
@@ -165,6 +165,7 @@ function Meter({ label, v }: { label:string; v:number }) {
           } as React.CSSProperties}
         />
       </div>
+      <span className="opacity-60 font-mono text-xs">{Math.round(pct)}%</span>
     </div>
   );
 }
