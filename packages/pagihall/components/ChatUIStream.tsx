@@ -103,13 +103,13 @@ export default function ChatUIStream() {
       </div>
 
       {/* signals */}
-      <div className="px-3 py-2 text-xs border-b border-white/10 flex gap-4">
+      <div className="px-3 py-2 text-xs border-b border-white/10 flex gap-4 flex-wrap">
         {signals ? (
           <>
-            <Meter label="U" v={signals.U}/>
-            <Meter label="N" v={signals.N}/>
-            <Meter label="S" v={signals.S}/>
-            <Meter label="V" v={signals.V}/>
+            <Meter label="Understanding" v={signals.U}/>
+            <Meter label="Novelty" v={signals.N}/>
+            <Meter label="Safety" v={signals.S}/>
+            <Meter label="Valence" v={signals.V}/>
           </>
         ) : <span className="opacity-50">Signals will appear after a reply.</span>}
       </div>
@@ -154,9 +154,9 @@ export default function ChatUIStream() {
 function Meter({ label, v }: { label:string; v:number }) {
   const pct = Math.max(0, Math.min(1, Number(v||0))) * 100;
   return (
-    <div className="flex items-center gap-2">
-      <span className="opacity-70 font-mono text-xs">{label}</span>
-      <div className="w-20 h-2 bg-neutral-800 rounded overflow-hidden">
+    <div className="flex items-center gap-2 min-w-0">
+      <span className="opacity-70 text-xs whitespace-nowrap">{label}</span>
+      <div className="w-16 h-2 bg-neutral-800 rounded overflow-hidden flex-shrink-0">
         <div 
           className="h-2 bg-white rounded transition-all duration-200" 
           style={{ 
@@ -165,7 +165,7 @@ function Meter({ label, v }: { label:string; v:number }) {
           } as React.CSSProperties}
         />
       </div>
-      <span className="opacity-60 font-mono text-xs">{Math.round(pct)}%</span>
+      <span className="opacity-60 font-mono text-xs flex-shrink-0">{Math.round(pct)}%</span>
     </div>
   );
 }
