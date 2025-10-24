@@ -7,8 +7,5 @@
     "packages/engine/api/**/*.ts": {
       "runtime": "nodejs20.x"
     }
-  },
-  "crons": [
-    { "path": "/api/topics/live", "schedule": "*/10 * * * *" }
-  ]
+  }
 }
