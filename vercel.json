@@ -1,9 +1,8 @@
 {
-  "buildCommand": "npm run build --workspace=@cuidado/pagihall",
-  "outputDirectory": "packages/pagihall/.next",
+  "buildCommand": "npm run build:frontend",
+  "outputDirectory": ".next",
   "installCommand": "npm install",
   "framework": "nextjs",
-  "rootDirectory": "packages/pagihall",
   "crons": [
     { "path": "/api/topics/live", "schedule": "0 9 * * *" }
   ]
