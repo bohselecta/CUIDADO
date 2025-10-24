@@ -73,8 +73,12 @@ export default function ChatUIStream() {
       // Fetch debug (signals + system prompt excerpt)
       fetch("/api/chat/stream")
         .then(r=>r.json())
-        .then(j => { setSignals(j?.signals || null); setSystemPrompt(j?.systemPrompt || null); })
-        .catch(()=>{});
+        .then(j => { 
+          console.log("Debug data:", j);
+          setSignals(j?.signals || null); 
+          setSystemPrompt(j?.systemPrompt || null); 
+        })
+        .catch(e => console.error("Debug fetch error:", e));
     }
   }
 
@@ -107,7 +111,7 @@ export default function ChatUIStream() {
             <Meter label="S" v={signals.S}/>
             <Meter label="V" v={signals.V}/>
           </>
-        ) : <span className="opacity-50">Signals will appear after a reply.</span>}
+        ) : <span className="opacity-50">Signals will appear after a reply. (Debug: signals={JSON.stringify(signals)})</span>}
       </div>
 
       {/* messages */}
@@ -139,7 +143,7 @@ export default function ChatUIStream() {
       {/* prompt drawer */}
       {showPrompt && (
         <div className="p-3 text-xs bg-neutral-950 border-t border-white/10 max-h-56 overflow-auto">
-          <div className="opacity-60 mb-1">System prompt (excerpt)</div>
+          <div className="opacity-60 mb-1">System prompt (excerpt) - Debug: {JSON.stringify(systemPrompt ? 'loaded' : 'null')}</div>
           <pre className="whitespace-pre-wrap">{systemPrompt || "No prompt available."}</pre>
         </div>
       )}
